@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no">
+    <title>教学质量网络评测系统(管理员)</title>
+    <link rel="icon" href="images/xue.png">
+    <link rel="stylesheet" href="css/index_adm.css">
+    <link rel="stylesheet" href="css/dist/bootstrap.css">
+    <script src="js/dist/jquery.min.js"></script>
+    <script src="js/dist/popper.js"></script>
+    <script src="js/dist/bootstrap.min.js"></script>
+</head>
+<body class="container p-0">
+    <nav class="daoHang navbar navbar-light justify-content-between sticky-top navbar-expand-lg mx-auto rounded" style="height:75px;">
+        <a href="" class="navbar-brand d-none d-lg-block">
+            <img src="images/logo.png" alt="" style="width:280px;">
+        </a>
+        <a href="" class="navbar-brand d-block d-lg-none">
+            <b><h4 class="pl-sm-3">教学质量网络评测系统</h4></b>
+        </a>
+        <button class="navbar-toggler" data-target="#collapse" data-toggle="collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse zheDie" id="collapse">
+            <ul class="navbar-nav mr-auto font-weight-bold pl-sm-3">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">首页</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#shisheng" data-toggle="dropdown">师生信息管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#pcgl" data-toggle="tab" >教学质量评测信息管理</a>
+                </li>
+            </ul>
+            <form action="" class="form-inline pl-sm-3">
+                <form action="" class="form-inline">
+                    <input type="search" class="form-control mr-sm-2" placeholder="请输入">
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">搜索</button>
+                </form>
+            </form>
+            <div class="ml-auto pl-sm-3 dropdown clearfix">
+                <div class="float-left mt-3 text-warning">管理端</div>
+                <a href="#" class="btn" data-toggle="dropdown">
+                    <img src="images/tx2.png" alt="个人" title="管理员" class="rounded-circle gr" style="width:40px;height:40px;">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a href="denglu.html" class="dropdown-item">退出登录</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="row mx-auto my-lg-5 my-sm-3">
+        <div class="col-12 col-lg-2 p-0"><!--侧边栏(左)-->
+            <ul class="rounded-pill nav nav-pills nav-fill bg-light d-none d-lg-block border border-white" style="height:600px;">
+                <li class="nav-item" style="margin-top:10rem">
+                    <a href="#zhedie1" type="button" data-toggle="collapse" class="nav-link btn btn-outline-warning" data-toggle="pill">师生信息管理</a>
+                    <div class="collapse" id="zhedie1">
+                        <a href="#xuesheng" class="nav-link btn" data-toggle="pill">学生信息管理</a>
+                    </div>
+                    <div class="collapse" id="zhedie1">
+                        <a href="#jiaoshi" class="nav-link btn" data-toggle="pill">教师信息管理</a>
+                    </div>
+                </li>
+                <li class="nav-item" style="margin-top:12rem;">
+                    <a href="#zhedie2" type="button" data-toggle="collapse" class="nav-link btn btn-outline-danger" data-toggle="pill">评测信息管理和统计</a>
+                    <div class="collapse" id="zhedie2">
+                        <a href="#pcgl" class="nav-link btn" data-toggle="pill">评测信息管理和统计</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-12 col-lg-10 p-0 rounded nr"><!--内容栏(右)-->
+            <div class="tab-content" style="height:600px">
+                <div class="tab-pane alert alert-dismissible p-0 border border-primary bg-light active" style="height:600px;" id="sylb">
+                    <iframe src="html/lunbo.html" frameborder="0" class="w-100" style="height:598px;"></iframe>
+                </div>
+                <div class="tab-pane alert alert-dismissible m-0 p-0" id="xuesheng">
+                    <iframe src="html/xueshengxinxi.html" frameborder="0" class="w-100" style="height:600px;"></iframe>
+                </div>
+                <div class="tab-pane alert alert-dismissible m-0 p-0" id="jiaoshi">
+                    <iframe src="html/jiaoshixinxi.html" frameborder="0" class="w-100" style="height:600px;"></iframe>
+                </div>
+                <div class="tab-pane alert alert-dismissible m-0 p-0" id="pcgl">
+                    <h4 class="text-center mt text-danger">评测信息的发布和编辑</h4>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <b>1</b>&nbsp;&nbsp;&nbsp;&nbsp;已有32人参与教学评价。
+                    </div>
+                    <div class="alert alert-warning alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <b>2</b>&nbsp;&nbsp;&nbsp;&nbsp;还有59人未参与教学评价。
+                    </div>
+                    <iframe src="html/pcgl.html" frameborder="0" class="w-100" style="height:400px;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="navbarText">
+        <div class="p-4" style="background-color:rgb(227, 240, 241)">
+            <div class="row">
+                <div class="col-8">
+                    <h4 class="text-white">联系方式</h4>
+                    <span class="text-muted">@</span>
+                </div>
+                <div class="col-4">
+                    <h6><a href="#"class="text-danger">你的学号</a></h6>
+                    <h6><a href="#"class="text-danger">你的班级</a></h6>
+                    <h6><a href="#" class="text-danger">你的名字</a></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-light rounded" style="background-color:rgb(185, 219, 217)">
+        <a class="navbar-brand mr-auto" href="#">版权所有：&copy;Mr.Ye</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"data-target="#navbarText">
+            <img src="bootstrap-icons-1.10.2/arrow-bar-up.svg" alt="">
+        </button>
+    </nav>
+</body>
+</html>

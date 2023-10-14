@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no">
+    <title>教学质量网络评测系统(学生)</title>
+    <link rel="icon" href="images/xue.png">
+    <link rel="stylesheet" href="css/index_stu.css">
+    <link rel="stylesheet" href="css/jiaoshi.css">
+    <link rel="stylesheet" href="css/dist/bootstrap.css">
+    <script src="js/dist/vue.js"></script>
+    <script src="js/dist/jquery.min.js"></script>
+    <script src="js/dist/popper.js"></script>
+    <script src="js/dist/bootstrap.min.js"></script>
+    <script>
+        function tijiao(){
+            alert("成功提交");
+            window.location.href="index_stu.html";
+        }
+        function wancheng(){
+            alert("已完成");
+        }
+    </script>
+</head>
+<body class="container p-0">
+    <nav class="daoHang navbar navbar-light justify-content-between sticky-top navbar-expand-lg mx-auto rounded" style="height:75px;">
+        <a href="" class="navbar-brand d-none d-lg-block">
+            <img src="images/logo.png" alt="" style="width:280px;">
+        </a>
+        <a href="" class="navbar-brand d-block d-lg-none">
+            <b><h4 class="pl-sm-3">教学质量网络评测系统</h4></b>
+        </a>
+        <button class="navbar-toggler" data-target="#collapse" data-toggle="collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse zheDie" id="collapse">
+            <ul class="navbar-nav mr-auto font-weight-bold pl-sm-3">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">首页</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" data-toggle="dropdown">个人信息</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#js" data-toggle="tab">教师信息</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#pc" data-toggle="tab" >教学质量评测</a>
+                </li>
+            </ul>
+            <form action="" class="form-inline pl-sm-3">
+                <form action="" class="form-inline">
+                    <input type="search" class="form-control mr-sm-2" placeholder="请输入">
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">搜索</button>
+                </form>
+            </form>
+            <div class="ml-auto pl-sm-3 dropdown">
+                <div class="float-left mt-3 text-success">学生端</div>
+                <a href="#" class="btn" data-toggle="dropdown">
+                    <img src="images/tx1.png" alt="个人" title="个人中心" class="rounded-circle gr" style="width:40px;height:40px;">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a href="denglu.html" class="dropdown-item">退出登录</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="row mx-auto my-lg-5 my-sm-3">
+        <div class="col-12 col-lg-2 p-0">
+            <ul class="rounded-pill  bg-light nav nav-pills nav-fill d-none d-lg-block border border-white" style="height:600px;">
+                <li class="nav-item" style="margin:7rem auto">
+                    <a href="#sy" type="button" class="nav-link btn btn-outline-info" data-toggle="pill">首页</a>
+                </li>
+                <li class="nav-item" style="margin:7rem auto">
+                    <a href="#js" type="button" class="nav-link btn btn-outline-info" data-toggle="pill">教师信息</a>
+                </li>
+                <li class="nav-item" style="margin:7rem auto">
+                    <a href="#pc" type="button" class="nav-link btn btn-outline-info" data-toggle="pill">教学质量评测</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-12 col-lg-10 p-0 rounded nr">
+            <div class="tab-content" style="height:600px">
+                <div class="tab-pane alert alert-primary alert-dismissible border border-dark m-0 p-3 bg-light active" id="sy" style="height:600px;">
+                    <h3 class="mb-3 text-center">&lt欢迎使用教学质量网络评测系统&gt</h3>
+                    <hr class="bg-danger">
+                    <div class="row mx-auto">
+                        <div class="col-4">
+                            <div class="clearfix mt-3">
+                                <img src="bootstrap-icons-1.10.2/chevron-double-left.svg" alt="" class="float-left my-3 border border-danger">
+                                <h5 class="ml-2 float-left border border-danger" style="margin-top:0.75rem;">首页使用说明</h5>
+                            </div>
+                            <div class="clearfix" style="margin-top:6.75rem;">
+                                <img src="bootstrap-icons-1.10.2/chevron-double-left.svg" alt="" class="float-left my-3 border border-danger">
+                                <h5 class="ml-2 float-left border border-danger" style="margin-top:0.75rem;">此处进行教师信息查看</h5>
+                            </div>
+                            <div class="clearfix mb-3" style="margin-top:6.5rem;">
+                                <img src="bootstrap-icons-1.10.2/chevron-double-left.svg" alt="" class="float-left my-3 border border-danger">
+                                <h5 class="ml-2 float-left border border-danger" style="margin-top:0.75rem;">此处进行教学质量评测</h5>
+                            </div>
+                        </div>
+                        <div class="col-8 text-center">
+                            <h2>使用说明</h2>
+                            <h4>评教完成后请及时提交!</h4>
+                            <h4>理性评教，不参杂个人情感!!</h4>
+                            <div class="p-0 mt-5">
+                                <img src="images/pingj.png" alt="" class="w-100 m-0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane alert alert-dismissible m-0 p-0" id="js">
+                    <div class="bg1">
+                        <table class="biaodan">
+                            <h3 class="h3_1">教师信息简表</h3>
+                            <table class="biaodan mt-5">
+                                <tr class="tr1">
+                                    <th>教师编号</th>
+                                    <th>姓名</th>
+                                    <th>所属院系</th>
+                                    <th>课程名称</th>
+                                    <th>课程编号</th>
+                                    <th>详情</th>
+                                </tr>
+                                <tr class="tr1">
+                                    <td>001</td>
+                                    <td>Amy</td>
+                                    <td>软件学院</td>
+                                    <td>vue.js</td>
+                                    <td>202001</td>
+                                    <td>
+                                        <a href="#xiangqing" data-toggle="pill">详情</a>
+                                    </td>
+                                </tr>
+                                <tr class="tr1">
+                                    <td>002</td>
+                                    <td>Mani</td>
+                                    <td>信息工程学院</td>
+                                    <td>linux</td>
+                                    <td>202002</td>
+                                    <td><a href="">详情</a></td>
+                                </tr>
+                                <tr class="tr1">
+                                    <td>003</td>
+                                    <td>Amy</td>
+                                    <td>地球科学学院</td>
+                                    <td>线代</td>
+                                    <td>202003</td>
+                                    <td><a href="">详情</a></td>
+                                </tr>
+                                <tr class="tr1">
+                                    <td id="tt" colspan="5">总计：3人</td>
+                                </tr>
+                            </table>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane alert alert-dismissible m-0 p-0" id="xiangqing">
+                    <form>
+                        <table border="1px" align="center" width="100%" height="100%" 
+                                background="images/beijing.png">
+                            <h1 class="text-center">个人信息</h1>
+                            <tr><!--第1行开始-->
+                            <th>姓名</th>
+                            <th>
+                                <input type="text" value="Amy" size="10"/>
+                            </th>
+                            <th>相片</th>
+                            <th>
+                                <input type="file" value="上传吧"/>
+                            </th>
+                            </tr><!--第1行结束-->
+                    
+                            <tr><!--第2行开始-->
+                            <th>性别</th>
+                            <th>
+                                <input type="radio" name="xingbie"  />男<!-- 单选按钮的name要一样 -->
+                                <input type="radio" name="xingbie"  checked/>女<!-- selected 和它的区别是什么？都是选择 -->
+                            </th>
+                            <th>爱好</th>
+                            <th>
+                                <input type="checkbox" name="1"  />听歌<!-- input可以用单标签的形式 -->
+                                <input type="checkbox" name="1"  />看书
+                                <input type="checkbox" name="1"  />上网<br/>
+                                <input type="checkbox" name="1"  />排球
+                                <input type="checkbox" name="1"  checked/>瑜伽
+                                <input type="checkbox" name="1"  />骑行
+                            </th>
+                            </tr><!--第2行结束-->
+                    
+                            <tr><!--第3行开始-->
+                            <th>地址</th>
+                            <th colspan="3">
+                                <select name="dizhi" size="1">
+                                    <option  >美国</option>
+                                    <option  >江西省</option>
+                                </select>
+                                
+                                <select name="dizhi" size="1">
+                                    <option  >纽约市</option>
+                                    <option  >九江市</option>
+                                </select>
+                                
+                                <select name="dizhi" size="1">
+                                    <option  >时代广场</option>
+                                    <option  >都昌县</option>
+                                </select>
+                            </th>
+                            </tr>
+                            <tr>
+                            <th>学历</th>
+                            <th colspan="3">
+                                <input type="text" value="博士" size="3">
+                            </th>
+                            </tr>
+                            <tr>
+                                <th>成就</th>
+                                <th colspan="3">
+                                    <input type="text" value="连续四年国际奥林匹克数学竞赛一等奖" size="40">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>联系方式</th>
+                                <th colspan="3">
+                                    <input type="text" value="123@outlook.com" size="20">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>自我描述</th>
+                                <th colspan="3">
+                                    <textarea name="名字" rows="6" cols="90" >毕业于MIT,任教于ECUT</textarea><!--这里不能用单标签-->
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>备注</th>
+                                <th colspan="3">
+                                    <textarea name="名字" rows="6" cols="90" >无……</textarea><!--这里不能用单标签-->
+                                </th>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="tab-pane alert alert-dismissible p-0" id="pc">
+                        <!--表格 -->
+                        <table class="table table-bordered border border-danger" style="margin-top:2rem;">
+                            <tr>
+                                <th class="text-center">评测内容编号</th>
+                                <th class="text-center">评测内容</th>
+                                <th class="text-center">评测人编号</th>
+                                <th class="text-center">评测人</th>
+                                <th class="text-center">发布时间</th>
+                                <th class="text-center">截止时间</th>
+                                <th class="text-center">操作</th>
+                            </tr>
+                            <tr class="text-center" v-for="(item,index) in myData">
+                                <td>1-1</td>
+                                <td>软件工程</td>
+                                <td>202001</td>
+                                <td>张三</td>
+                                <td>2022-12-22</td>
+                                <td>2023-01-07</td>
+                                <td>
+                                    <a href="#pj" data-toggle="pill">去评教</a>
+                                    <button  class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#update" v-on:click="modify(index)" style="margin-left:10%;">未完成</button>
+                                </td>
+                            </tr>
+                            <tr class="text-center" v-for="(item,index) in myData">
+                                <td>1-2</td>
+                                <td>软件工程</td>
+                                <td>202002</td>
+                                <td>李四</td>
+                                <td>2022-12-22</td>
+                                <td>2023-01-07</td>
+                                <td>
+                                    <a href="#" onclick="wancheng();">去评教</a>
+                                    <button  class="btn btn-success btn-sm"  data-toggle="modal" data-target="#update" v-on:click="modify(index)" style="margin-left:10%;">已完成</button>
+                                </td>
+                            </tr>
+                        </table>
+                </div>
+                <div class="tab-pane alert alert-dismissible rounded-pill text-center clearfix p-3" id="pj">
+                    <div class="nr-left">
+                        <div class="nr-lt">tips(请按照实际情况认真填写)</div>
+                        <div class="nr-lb">
+                            <div class="wenTi">
+                                <div class="tiMu_wai clearfix">
+                                    <img src="bootstrap-icons-1.10.2/1-circle.svg" class="tiMu_wai1" alt="" style="width:20px;height:20px;">
+                                    <div class="tiMu_wai2">你觉得老师上课讲的课程容易理解吗？</div>
+                                </div>
+                                <div class="tiMu_nei">
+                                    <input type="radio" name="nei1">满意
+                                    <input type="radio" name="nei1">一般
+                                    <input type="radio" name="nei1">略差
+                                    <input type="radio" name="nei1">不满
+                                </div>
+                            </div>
+                            <div class="wenTi">
+                                <div class="tiMu_wai clearfix">
+                                    <img src="bootstrap-icons-1.10.2/2-circle.svg" class="tiMu_wai1" alt="" style="width:20px;height:20px;">
+                                    <div class="tiMu_wai2">你觉得老师上课讲的课程容易理解吗？</div>
+                                </div>
+                                <div class="tiMu_nei">
+                                    <input type="radio" name="nei2">满意
+                                    <input type="radio" name="nei2">一般
+                                    <input type="radio" name="nei2">略差
+                                    <input type="radio" name="nei2">不满
+                                </div>
+                            </div>
+                            <div class="wenTi">
+                                <div class="tiMu_wai clearfix">
+                                    <img src="bootstrap-icons-1.10.2/3-circle.svg" class="tiMu_wai1" alt="" style="width:20px;height:20px;">
+                                    <div class="tiMu_wai2">你觉得老师上课讲的课程容易理解吗？</div>
+                                </div>
+                                <div class="tiMu_nei">
+                                    <input type="radio" name="nei3">满意
+                                    <input type="radio" name="nei3">一般
+                                    <input type="radio" name="nei3">略差
+                                    <input type="radio" name="nei3">不满
+                                </div>
+                            </div>
+                            <div class="wenTi">
+                                <div class="tiMu_wai clearfix">
+                                    <img src="bootstrap-icons-1.10.2/4-circle.svg" class="tiMu_wai1" alt="" style="width:20px;height:20px;">
+                                    <div class="tiMu_wai2">你觉得老师上课讲的课程容易理解吗？</div>
+                                </div>
+                                <div class="tiMu_nei">
+                                    <input type="radio" name="nei4">满意
+                                    <input type="radio" name="nei4">一般
+                                    <input type="radio" name="nei4">略差
+                                    <input type="radio" name="nei4">不满
+                                </div>
+                            </div>
+                            <div class="wenTi">
+                                <div class="tiMu_wai clearfix">
+                                    <img src="bootstrap-icons-1.10.2/5-circle.svg" class="tiMu_wai1" alt="" style="width:20px;height:20px;">
+                                    <div class="tiMu_wai2">你觉得老师上课讲的课程容易理解吗？</div>
+                                </div>
+                                <div class="tiMu_nei">
+                                    <input type="radio" name="nei5">满意
+                                    <input type="radio" name="nei5">一般
+                                    <input type="radio" name="nei5">略差
+                                    <input type="radio" name="nei5">不满
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="anNiu" onclick="tijiao()">提交</button>
+                    </div>
+                    <div class="nr-right">
+                        <div class="nr-rt">
+                            <img src="images/tx3.png" alt="" style="width:100%;height:100%;">
+                        </div>
+                        <div class="nr-rb text-left">
+                            <div class="card p-1 my-4">姓名:Amy</div>
+                            <div class="card p-1 mb-4">性别:女</div>
+                            <div class="card p-1 mb-4">编号:001</div>
+                            <div class="card p-1 my-4">学历:硕士</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" id="navbarText">
+        <div class="p-4" style="background-color:rgb(227, 240, 241)">
+            <div class="row">
+                <div class="col-8">
+                    <h4 class="text-white">联系方式</h4>
+                    <span class="text-muted">@</span>
+                </div>
+                <div class="col-4">
+                    <h6><a href="#"class="text-danger">你的学号</a></h6>
+                    <h6><a href="#"class="text-danger">你的班级</a></h6>
+                    <h6><a href="#" class="text-danger">你的名字</a></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-light rounded" style="background-color:rgb(185, 219, 217)">
+        <a class="navbar-brand mr-auto" href="#">版权所有：&copy;Mr.Ye</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"data-target="#navbarText">
+            <img src="bootstrap-icons-1.10.2/arrow-bar-up.svg" alt="">
+        </button>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>登录</title>
+    <link rel="stylesheet" type="text/css" href="css/de.css">
+    <script type="text/javascript" src="js/de.js"></script>
+    <link rel="stylesheet" href="css/dist/bootstrap.css">
+    <script src="js/dist/jquery.min.js"></script>
+    <script src="js/dist/popper.js"></script>
+    <script src="js/dist/bootstrap.min.js"></script>
+</head>
+<body class="container">
+    <form name="f" onsubmit="check(this)">         
+        <h1 class="text-white font-weight-bold">教学质量网络评测系统</h1>
+        <p class="text-warning">(账号:ye/ywb&nbsp;&nbsp;密码:123)</p>
+        <input type="text" id="name" placeholder="账号"><br>
+        <input type="password" id="pass" placeholder="密码"><br>
+        <select id="people" class="bg-success">
+            <option value="1">用户</option>
+            <option value="2">管理员</option>
+        </select>
+        <input type="button" onclick="check(this)" value="登录">
+    </form>
+    <script>
+        $('#people').tooltip({
+            trigger:"click"
+        })
+        $('#people').on('hidden.bs.tooltip',function(){
+            $(this).removeClass("bg-success").addClass("bg-warning");
+        })
+    </script>
+</body>
+</html>

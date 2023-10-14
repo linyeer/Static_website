@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Information Management System</title>
+    <script src="../js/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="../css/stu.css">
+    <script src="../js/stu.js"></script>
+</head>
+<body>
+<div>
+    <header>
+        <hr/>
+        <h1>学生信息管理</h1>
+        <hr/>
+    </header>
+    <main>
+        <div>
+            <div id="adbt">
+                <button class="gre" id="add">新增</button>
+                <button class="red" id="delete">删除</button>
+            </div>
+            <table>
+                <tbody>
+                <tr id="thead">
+                    <td><input type="checkbox"></td>
+                    <td>序号</td>
+                    <td>学生编号</td>
+                    <td>姓名</td>
+                    <td>所属院系</td>
+                    <td>任课老师</td>
+                    <td>年级</td>
+                    <td>班级</td>
+                    <td>年龄</td>
+                    <td>操作</td>
+                </tr>
+                </tbody>
+            </table>
+            <div id="navigate">
+                <p>第<span id="pgn"></span>页,共<span id="en"></span>条 (每页最多显示10条)</p><!--Number of entries-->
+                <div id="tpbt">
+                    <button class="gre" id="lastpage">上一页</button>
+                    <button class="red" id="nextpage">下一页</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<div id="sbg"></div><!--增删改查时的阴影背景-->
+<div class="achaesi" id="asi">
+<!--    <form action="" method="post">-->
+    <h2>新增学生信息</h2>
+    <div class="ifm">
+        <div><label for="assn">学号</label> <input id="assn" type="text" placeholder="20200117" required="required" maxlength="11" pattern="^[0-9]{11}$" oninvalid="setCustomValidity('请输入11位的数字组合')"></div>
+        <div><label for="asn">姓名</label> <input id="asn" type="text" placeholder="张三" required="required" minlength="2" maxlength="8" pattern="^[\u4e00-\u9fa5]+$" oninvalid="setCustomValidity('请输入正确的姓名')"></div>
+        <div><label for="asac">学院</label> <input id="asac" type="text" placeholder="软件学院" required="required" minlength="3" maxlength="10" pattern="^[\u4e00-\u9fa5]+$" oninvalid="setCustomValidity('请输入正确的学院名')"></div>
+        <div><label for="asm">老师</label> <input id="asm" type="text" placeholder="Amy" required="required" minlength="3" maxlength="12" pattern="^[\u4e00-\u9fa5]+$" oninvalid="setCustomValidity('请输入正确的教师名')"></div>
+        <div><label for="asg">年级</label> <input id="asg" type="text" placeholder="2020" required="required" max="2020" maxlength="4" pattern="^[0-9]{4}$" oninvalid="setCustomValidity('请输入正确的年级')"></div>
+        <div><label for="asc">班级</label> <input id="asc" type="text" placeholder="1" required="required" maxlength="1"></div>
+        <div><label for="asag">年龄</label> <input id="asag" type="number" placeholder="17" required="required" min="0" maxlength="2" pattern="^[0-9]+$" oninvalid="setCustomValidity('请输入正确的年龄')"></div>
+    </div>
+    <hr/>
+    <div class="scbt">
+        <button type="submit" id="submit">提交</button>
+        <button class="cancel">取消</button>
+    </div>
+<!--    </form>-->
+</div>
+<div class="achaesi" id="chasi">
+<!--    <form action="" method="post">-->
+    <h2>修改学生信息</h2>
+    <div class="ifm">
+        <div><label for="chassn">学号</label> <input id="chassn" type="text" readonly required="required" maxlength="11" pattern="^[0-9]{11}$" oninvalid="setCustomValidity('请输入11位的数字组合')"></div>
+        <div><label for="chasn">姓名</label> <input id="chasn" type="text" required="required" minlength="2" maxlength="8" pattern="^[\u4e00-\u9fa5]+$" oninvalid="setCustomValidity('请输入正确的姓名')"></div>
+        <div><label for="chasac">学院</label> <input id="chasac" type="text" required="required" minlength="3" maxlength="10" pattern="^[\u4e00-\u9fa5]+$" oninvalid="setCustomValidity('请输入正确的学院名')"></div>
+        <div><label for="chasm">老师</label> <input id="chasm" type="text" required="required" minlength="3" maxlength="12" pattern="^[\u4e00-\u9fa5]+$" oninvalid="setCustomValidity('请输入正确的专业名')"></div>
+        <div><label for="chasg">年级</label> <input id="chasg" type="text" required="required" max="2020" maxlength="4" pattern=^[0-9]{4}$" oninvalid="setCustomValidity('请输入正确的年级')"></div>
+        <div><label for="chasc">班级</label> <input id="chasc" type="text" required="required" maxlength="1"></div>
+        <div><label for="chasag">年龄</label> <input id="chasag" type="text" required="required" min="0" maxlength="2" pattern="^[0-9]+$" oninvalid="setCustomValidity('请输入正确的年龄')"></div>
+    </div>
+    <hr/>
+    <div class="scbt">
+        <button type="submit" id="save">保存</button>
+        <button class="cancel">取消</button>
+    </div>
+<!--    </form>-->
+</div>
+<div class="achaesi" id="chesi">
+    <h2>查看学生信息</h2>
+    <div class="ifm">
+        <div><label for="chessn">学号</label> <input type="text" readonly id="chessn"></div>
+        <div><label for="chesn">姓名</label> <input type="text" readonly id="chesn"></div>
+        <div><label for="chesac">学院</label> <input type="text" readonly id="chesac"></div>
+        <div><label for="chesm">老师</label> <input type="text" readonly id="chesm"></div>
+        <div><label for="chesg">年级</label> <input type="text" readonly id="chesg"></div>
+        <div><label for="chesc">班级</label> <input type="text" readonly id="chesc"></div>
+        <div><label for="chesag">年龄</label> <input type="text" readonly id="chesag"></div>
+    </div>
+    <hr/>
+    <div class="scbt">
+        <button class="cancel">取消</button>
+    </div>
+</div>
+</body>
+</html>

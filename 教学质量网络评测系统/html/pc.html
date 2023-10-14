@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no">
+    <title></title>
+    <link rel="stylesheet" href="../css/dist/bootstrap.css">
+    <script src="../js/dist/vue.js"></script>
+    <script src="../js/dist/jquery.min.js"></script>
+    <script src="../js/dist/popper.js"></script>
+    <script src="../js/dist/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!--表格 -->
+        <table class="table table-bordered border border-danger">
+            <tr>
+                <th class="text-center">评测内容编号</th>
+                <th class="text-center">评测内容</th>
+                <th class="text-center">评测人编号</th>
+                <th class="text-center">评测人</th>
+                <th class="text-center">发布时间</th>
+                <th class="text-center">截止时间</th>
+                <th class="text-center">操作</th>
+            </tr>
+            <tr class="text-center" v-for="(item,index) in myData">
+                <td>{{item.cont_id}}</td>
+                <td>{{item.cont}}</td>
+                <td>{{item.peop_id}}</td>
+                <td>{{item.peop}}</td>
+                <td>{{item.timef}}</td>
+                <td>{{item.timel}}</td>
+                <td>
+                    <a href="#">去评教</a>
+                    <button  class="btn btn-danger btn-sm"  data-toggle="modal" data-target="#update" v-on:click="modify(index)" style="margin-left:10%;">未完成</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+    window.onload=function(){
+        var app=new Vue({
+                el:'.container',
+                data:{
+                    myData:[{'cont_id':'1-1','cont':'软件工程','peop_id':'202001','peop':'张三','timef':'2022-12-22','timel':'2023-01-07'},
+                    {'cont_id':'1-2','cont':'软件工程','peop_id':'202002','peop':'李四','timef':'2022-12-22','timel':'2023-01-07'}],
+                    username:'',
+                    age:'',
+                    nowIndex:-100,
+                },
+            })
+        }
+    </script>
+</body>
+</html>

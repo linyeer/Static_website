@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no">
+    <title></title>
+    <link rel="stylesheet" href="../css/dist/bootstrap.css">
+    <script src="../js/dist/vue.js"></script>
+    <script src="../js/dist/jquery.min.js"></script>
+    <script src="../js/dist/popper.js"></script>
+    <script src="../js/dist/bootstrap.min.js"></script>
+    <style>
+        #app {
+            margin-top: 100px;
+            border: 1px solid blue;
+            width:100%;
+        }
+        #table{
+            border:1px solid red;
+        }
+        #layer {
+            width: 250px;
+            height: 180px;
+            margin: 20px 50px;
+            border: 1px solid black;
+        }
+        #layer .close {
+            margin-left: 180px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="table">
+            <div class="add">
+                <input type="text" placeholder="评测内容" v-model="obj.title">
+                <input type="text" placeholder="评测人编号" v-model="obj.user">
+                <input type="date" placeholder="发布时间" v-model="obj.dates">
+                <button @click="add()" style="color:#f07e22">新增</button>
+            </div>
+            <table cellpadding="20" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>评测内容编号</th>
+                    <th>评测内容</th>
+                    <th>评测人编号</th>
+                    <th>评测人</th>
+                    <th>评测汇总</th>
+                    <th>发布时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(item,index) in items" :key='item.id'>
+                    <td>{{index+1}}-{{item.id}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.user}}</td>
+                    <td>{{item.people}}</td>
+                    <td>{{item.all}}</td>
+                    <td>{{item.dates}}</td>
+                    <td>
+                        <span @click="del(index)" style="color:red">删除</span>
+                        <span @click="edit(item)" style="color:green">编辑</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div id="layer" v-if="layer">
+                <div class="mask">
+                <div class="title">
+                    编辑
+                    <span class="close" @click="layer = false">x</span>
+                </div>
+                <div class="content">
+                    <input type="text" placeholder="内容" v-model="editObj.title">
+                    <input type="text" placeholder="编号" v-model="editObj.user">
+                    <input type="text" placeholder="评测人" v-model="editObj.people">
+                    <input type="text" placeholder="汇总" v-model="editObj.all">
+                    <input type="date" placeholder="发布时间" v-model="editObj.dates">
+                    <button @click="updateItems">更新</button>
+                    <button @click="layer = false">取消</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let vm = new Vue({
+        el: '#app',
+        data: {
+            searchStr:'',
+            items: [{
+            title: '满意',
+            user: '202001',
+            people:'张三',
+            all:'100分',
+            dates: '2022-12-22',
+            id: 1
+            }, {
+            title: '一般',
+            user: '202002',
+            people:'李四',
+            all:'80分',
+            dates: '2022-12-22',
+            id: 2
+            }, {
+            title: '还行',
+            user: '202003',
+            people:'王五',
+            all:'60分',
+            dates: '2022-12-22',
+            id: 3
+            }],
+            layer: false,
+            editObj: {},
+            obj: {
+            title: '',
+            user: '',
+            people:'',
+            dates: '',
+            all:''
+            }
+        },
+        methods: {
+            add() {
+            //用户没有输入的时候判断一下，不添加
+            if (!this.obj.title || !this.obj.user || !this.obj.dates) return;
+            var _id = Math.max(...this.items.map((v, i) => {
+                return v.id
+            })) + 1
+
+            this.items.unshift({
+                title: this.obj.title,
+                user: this.obj.user,
+                people:this.obj.people,
+                all:this.obj.people,
+                dates: this.obj.dates,
+                id: _id
+            })
+            this.obj = {}
+            },
+            del(i) {
+            // console.log(i)
+            this.items.splice(i, 1)
+            },
+            edit(item) {
+            this.layer = true;
+            this.editObj = {
+                title: item.title,
+                user: item.user,
+                people:item.people,
+                all:item.all,
+                dates: item.dates,
+                id: item.id
+            }
+            },
+            updateItems() {
+            for (var i = 0; i < this.items.length; i++) {
+                if (this.items[i].id == this.editObj.id) {
+                this.items[i] = this.editObj;
+                this.layer = false;
+                }
+            }
+            }
+        }
+        })
+    </script>
+</body>
+</html>

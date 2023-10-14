@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no">
+    <title></title>
+    <link rel="stylesheet" href="../css/dist/bootstrap.css">
+    <script src="../js/dist/jqthumb.js"></script><!--解决图片变形-->
+    <script src="../js/dist/jquery.min.js"></script>
+    <script src="../js/dist/bootstrap.min.js"></script>
+</head>
+<body class="container" style="background-color:rgb(190,219,226) ">
+    <h3 class="text-center mt-3 rounded-pill" style="background-color:rgb(143, 204, 219) "><教学质量评测系统管理员端></h3>
+    <div id="Carousel" class="carousel slide p-0 mt-3" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <!--标识图标-->
+            <li data-target="#Carousel" data-slide-to="0" class="active"></li>
+            <li data-target="#Carousel" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner" style="margin:110px auto;">
+            <!--幻灯片包含项-->
+            <div class="carousel-item active">
+                <img src="../images/lunbo1.png" alt="" class="d-block w-100" onload="DrawImage(this)">
+                <div class="carousel-caption">
+                    <h5>教学质量评测</h5>
+                    <p>认真负责</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="../images/lunbo2.png" alt="" class="d-block w-100" onload="DrawImage(this)">
+                <div class="carousel-caption">
+                    <h5>教学质量评测</h5>
+                    <p>认真对待</p>
+                </div>
+            </div>
+        </div>
+        <!--控制按钮-->
+        <a href="#Carousel" class="carousel-control-prev" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a href="#Carousel" class="carousel-control-next" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+    </div>
+</body>
+</html>
