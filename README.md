@@ -3,7 +3,7 @@
 
 *** 
 >- **防疫网站**
-![防疫网站](https://github.com/linyeer/Static_website/blob/main/images/fangyi.png)
+![防疫网站](images/fangyi.png)
 ***
 >- **教学质量网络评测系统-学生**
 >![学生端](images/pingce_student.png)
