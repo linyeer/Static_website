@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yemusic</title>
+    <link rel="icon" href="../image/音乐.png">
+    <link rel="stylesheet" href="../js/bootstrap.css">
+    <script src="../js/vue.js"></script>
+    <script src="../js/axios.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <style>
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        #app {
+            display: flex;
+            height: 100%;
+        }
+
+        .left-section {
+            background-color: #f0f0f0;
+            flex-basis: 10%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            /* background-color: #ebb11f; */
+            flex-basis: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sidebar {
+            /* background-color: #ebb11f; */
+            flex-basis: 90%;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        .sidebar-heading {
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 0.8em;
+        }
+
+        .sidebar-item {
+            margin-bottom: 15px;
+            border-radius: 5px;
+            /* padding: 5px 10px; */
+            /* 将光标设置为指针，以表示该元素是可单击的。 */
+            cursor: pointer;
+        }
+
+        .sidebar-item:hover {
+            background-color: #e2d7d7;
+        }
+
+        .sidebar-item img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* 创建的歌单删除样式 */
+        .playlist-item {
+            position: relative;
+            padding-right: 20px;
+        }
+
+        .delete-icon {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
+
+        .delete-icon-img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .playlist-item:hover .delete-icon {
+            display: block;
+        }
+
+        /* 右侧板块 */
+        .right-section {
+            background-color: #fff;
+            flex-basis: 90%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 导航栏 */
+        .navbar ,.playbar {
+            /* background-color: #8de3f1; */
+            flex-basis: 10%;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .navbar-custom ,.playbar-custom {
+            justify-content: flex-start;
+        }
+
+        /* 前进后退键 */
+        .navbar-icon-back {
+            width: 30px;
+            height: 30px;
+            margin-right:5px;
+            margin-top:5px;
+        }
+
+        .navbar-icon-forward {
+            width: 30px;
+            height: 30px;
+            margin-left:5px;
+            margin-top:5px;
+        }
+
+        /* 搜索框 */
+        .search-form {
+            border:1px solid black;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .search-icon-img {
+            height: 15px;
+            width: 15px;
+        }
+
+        .search-form .input-group-text {
+            border: none;
+            background-color: white;
+        }
+
+        .search-form .form-control {
+            border: none;
+        }
+
+        .btn-custom {
+            background-color: transparent;
+            color: #984bd8;
+            border: none;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 内容区域 */
+        .content {
+            overflow: auto;
+            flex: 1;
+            padding: 20px;
+        }
+
+        .carousel{
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-item img {
+            border-radius: 10px;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .container-img {
+            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* 渲染的表格样式 */
+        .hover-effect:hover {
+            background-color: #f1f1f1;
+        }
+
+        .music-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* 信息页样式 */
+        .xinxibox{
+            padding:10px;
+        }
+
+        .liuyan,.fabu{
+            border:1px solid burlywood;
+            border-radius: 10px;
+        }
+
+        .span2{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border:1px solid orange;
+            border-radius: 5px;
+        }
+
+        /* 播放器样式 */
+        .playdiv img{
+            width:25px;
+            height:25px;
+        }
+
+        .icon-wrapper img{
+            width:40px;
+            height: 40px;
+        }
+
+        /* 添加媒体查询，根据屏幕尺寸进行适配 */
+        @media (max-width: 600px) {
+            #app {
+                flex-direction: column;
+            }
+
+            .left-section, .right-section {
+                flex-basis: 100%;
+            }
+        }
+
+        /* 个人信息 */
+        .user-container {
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        /* 用户信息样式 */
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* 动态绑定的样式 */
+        .dynamic-style {
+            background-color: orange;
+            border-radius: 5px;
+            padding: 5px;
+            color: white;
+            margin-right: 10px;
+        }
+
+        /* 修改按钮样式 */
+        .edit-button {
+            height: 100%;
+        }
+
+        /* 弹出的修改框样式 */
+        .edit-form {
+            display: flex;
+            align-items: center;
+        }
+
+        /* 输入框样式 */
+        .edit-form input[type="text"] {
+            margin-right: 10px;
+        }
+
+        /* div{
+            border:1px solid red;
+        } */
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="left-section">
+            <div class="logo">
+                <img src="../image/音乐.png" style="max-width: 40px;">
+                <span style="font-size: 1.4em;">Yemusic</span>
+            </div>
+            <div class="sidebar">
+                <!-- 侧边栏 -->
+                <div class="sidebar-heading">在线音乐</div>
+                <div class="sidebar-item" @click="showPage('recommend')">
+                    <img src="../image/tuijian.png">
+                    推荐
+                </div>
+                <div class="sidebar-item">
+                    <img src="../image/yinyueguan.png">
+                    音乐馆
+                </div>
+                <div class="sidebar-item">
+                    <img src="../image/shipin.png">
+                    视频
+                </div>
+                <div class="sidebar-heading">我的音乐</div>
+                <div class="sidebar-item" @click="showPage('ilike')">
+                    <img src="../image/woxihuan.png">
+                    我喜欢
+                </div>
+                <div class="sidebar-item">
+                    <img src="../image/xiazai.png">
+                    本地和下载
+                </div>
+                <div class="sidebar-item">
+                    <img src="../image/yigou.png">
+                    已购音乐
+                </div>
+                <div class="sidebar-heading d-flex">
+                    <div>创建的歌单</div>
+                    <div class="ml-auto" style="width: 20px; height: 20px;" @click="addPlaylist">
+                        <img src="../image/add.png" alt="" style="width: 100%; height: 100%;">
+                    </div>
+                    
+                    <div style="width: 20px; height: 20px; margin-left: 10px;" @click="togglePlaylist">
+                        <img :src="collapseIcon" alt="" style="width: 100%; height: 100%;">
+                    </div>
+                </div>
+                
+                <div class="sidebar-item playlist-item" v-for="(playlist, index) in playlists" v-show="!isPlaylistCollapsed">
+                    {{ playlist }}
+                    <div class="delete-icon" @click="deletePlaylist(index)">
+                        <img class="delete-icon-img" src="../image/delete.png" alt="Delete">
+                    </div>
+                </div>                                                              
+                <div class="sidebar-heading">信息查看</div>
+                <div class="sidebar-item" @click="showPage('xinxi')">
+                    <img src="../image/xinxi.png">
+                    留言和公告
+                </div>
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="navbar navbar-custom">
+                <!-- 导航栏 -->
+                <div style="display: flex;">
+                    <div @click="goBack">
+                        <img src="../image/back.png" alt="Back" class="navbar-icon-back">
+                    </div>
+                    <div @click="goForward">
+                        <img src="../image/forward.png" alt="Forward" class="navbar-icon-forward">
+                    </div>
+                    <form class="search-form ml-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <img class="search-icon-img" src="../image/search.png" alt="Search" @click="searchMusic">
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="搜索音乐" v-model="searchText">
+                        </div>
+                    </form>
+
+                    <!-- 显示搜索结果 -->
+                    <ol class="mr-3">
+                        <li v-for="result in searchResults" :key="result.id" @click="playMusic(result)">
+                            <a href="#" style="color:red;">{{ result.mName }}</a> 
+                        </li>
+                    </ol>                                                        
+                </div>
+                <div style="display: flex; align-items: center; margin-left: auto;">
+                    <!-- 用户头像 -->
+                    <div class="dropdown">
+                        <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="../image/me.png" alt="me" style="width: 30px; height: 30px; border-radius: 50%;">
+                        </a>
+                        <!-- 下拉菜单 -->
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#" @click="showPage('myself')">用户信息</a>
+                            <a class="dropdown-item" href="#" @click="logout">退出登录</a>
+                        </div>
+                    </div>
+                    <!-- 留言板模态框 -->
+                    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="messageModalLabel">留言添加</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <textarea v-model="messageContent" class="form-control" rows="5" placeholder="请输入留言内容"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" @click="submitMessage">提交</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 留言板按钮 -->
+                    <button class="btn btn-custom" data-toggle="modal" data-target="#messageModal">留言板</button>
+                </div>
+            </div>            
+            <div class="content">
+                <!-- 右下内容区域 -->
+                <div v-show="currentPage === 'recommend'">
+                    <h2>推荐</h2>
+                    
+                    <p>Hi {{ <!-- 当前登录的用户名字 --> }}今日为你推荐</p>
+                    <div class="container-fluid">
+                        <div class="row tj1" style="height:200px;">
+                            <div class="col-4 p-0">
+                                <!-- 左侧容器 --> 
+                                <div class="h-100 ">
+                                    <div class="pr-3" style="height:88%">
+                                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                            <ol class="carousel-indicators">
+                                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                            </ol>
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img src="../image/lunbo1.png" class="d-block w-100" alt="...">
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="../image/lunbo2.png" class="d-block w-100" alt="...">
+                                                </div>
+                                                <div class="carousel-item">
+                                                    <img src="../image/lunbo3.png" class="d-block w-100" alt="...">
+                                                </div>
+                                            </div>
+                                            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Previous</span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <span>猜你喜欢</span>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <!-- 右侧容器 -->
+                                <div class="row h-100">
+                                    <div class="col-3 p-0">
+                                        <div class="px-3" style="height:88%">
+                                            <img src="../image/3.png" class="container-img">
+                                        </div>          
+                                        <span class="ml-3">每日30首</span>
+                                    </div>
+                                    <div class="col-3 p-0">
+                                        <div class="px-3" style="height:88%">
+                                            <img src="../image/4.png" class="container-img">
+                                        </div>
+                                        <span class="ml-3">新歌推荐</span>
+                                    </div>
+                                    <div class="col-3 p-0">
+                                        <div class="px-3" style="height:88%">
+                                            <img src="../image/5.png" class="container-img">
+                                        </div>
+                                        <span class="ml-3">杜比专区</span>
+                                    </div>
+                                    <div class="col-3 p-0">
+                                        <div class="px-3" style="height:88%">
+                                            <img src="../image/6.png" class="container-img">
+                                        </div>
+                                        <span class="ml-3">百万收藏</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="mt-4">你的私荐歌单</h3>
+                    <div class="container-fluid" style="height:400px;">
+                        <div class="row">
+                            <div class="col-2 p-0">
+                                <div style="height:200px; overflow: hidden;">
+                                    <div class="px-3" style="height:88%">
+                                        <img src="../image/7.png" class="container-img">
+                                    </div>
+                                    <span class="text-truncate d-inline-block" style="max-width: 100%; overflow: hidden; text-overflow: ellipsis; color: #000;">
+                                        华语私藏|拾记忆碎片重回青春
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-2 p-0">
+                                <div style="height:200px;">
+                                    <div class="px-3" style="height:88%">
+                                        <img src="../image/8.png" class="container-img">
+                                    </div>
+                                    <span class="text-truncate d-inline-block" style="max-width: 100%; overflow: hidden; text-overflow: ellipsis; color: #000;">
+                                        [盘点]周杰伦为他们写的歌
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                                
+                <div v-show="currentPage === 'ilike'">
+                    <h4 style="font-weight: bold;">我喜欢</h4>
+                    <div style="margin-bottom: 10px;">
+                        <a href="#" class="btn btn-warning btn-sm rounded-pill" @click="showLike('likeSong')">歌曲</a>
+                        <a href="#" class="btn btn-warning btn-sm rounded-pill ml-1" @click="showLike('likeSonglist')">歌单</a>
+                        <a href="#" class="btn btn-warning btn-sm rounded-pill ml-1" @click="showLike('likeSongalbum')">专辑</a>
+                    </div>
+                    <div v-show="currentLike === 'likeSong'" style="background-color: antiquewhite;">
+                        <table class="table table-bordered table-borderless" style="margin-top:2rem;">
+                            <thead>
+                                <tr>
+                                    <th class="px-0">歌曲</th>
+                                    <th class="px-0">歌手</th>
+                                    <th class="px-0">专辑</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 从数据库获取音乐信息，使用v-for列表渲染歌曲内容 -->
+                                <tr v-for="music in musics" :key="music.id" @click="playMusic(music)" class="hover-effect">
+                                    <td class="px-0">
+                                        <a href="#" @click="playMusic(music)" style="color:black;text-decoration: none;">
+                                            <img  class="music-icon" src="../image/micon.png" alt="">{{ music.mName }}
+                                        </a>
+                                    </td>
+                                    <td class="px-0">{{ music.mSinger }}</td>
+                                    <td class="px-0">{{ music.mAlbu }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div v-show="currentLike === 'likeSonglist'">喜欢的歌单</div>
+                    <div v-show="currentLike === 'likeSongalbum'">喜欢的专辑</div>
+                </div>
+                <div v-show="currentPage === 'xinxi'">
+                    <!-- 从数据库获取留言信息 -->
+                    <div class="xinxibox" style="float: left; width: 50%;">
+                        <span class="span2" style="background-color: #9ad0ec;">匿名留言板</span>
+                        <div class="liuyan p-3 my-3" v-for="message in messages" :key="message.id" style="background-color: #9ad0ec;">
+                            <td class="px-0">留言：{{ message.messageId }}</td><br>
+                            <td class="px-0">留言内容：{{ message.messageContent }}</td><br>
+                            <td class="px-0">留言回复：{{ message.messageRes }}</td>
+                        </div>
+                    </div>
+
+                    <!-- 从数据库获取发布信息 -->
+                    <div class="xinxibox" style="float: left; width: 50%;">
+                        <span class="span2" style="background-color: #efdad7;">新歌发布板</span>
+                        <div class="fabu p-3 my-3" v-for="mSong in mSongs" :key="mSong.id" style="background-color: #efdad7;">
+                            <td class="px-0">歌曲：{{ mSong.mSongtitle }}</td><br>
+                            <td class="px-0">歌手：{{ mSong.mSongartist }}</td><br>
+                            <td class="px-0">专辑：{{ mSong.mSongalbum }}</td><br>
+                            <td class="px-0">上线时间：{{ mSong.mSongtime }}</td>
+                        </div>
+                    </div>
+                </div>
+                <div v-show="currentPage === 'myself'" class="user-container">
+                    <div v-for="(value, key) in currentUser" :key="key" class="user-info" v-if="key!=='userId'">
+                        <!-- <span :class="['dynamic-style']">{{ key }}:</span> -->
+                        <span :class="['dynamic-style']">
+                            {{
+                                key === 'userName' ? '昵称' :
+                                key === 'userPass' ? '密码' :
+                                key === 'userAge' ? '年龄' :
+                                key === 'userSex' ? '性别' :
+                                key === 'userBirth' ? '生日' :
+                                key === 'userCity' ? '城市' :
+                                key === 'userHobby' ? '爱好' : ''
+                            }}:
+                        </span>
+                        <div>{{ value }}</div>
+                        <button :disabled="key==='userName'" @click="editUser(key)" class="btn btn-info btn-sm ml-auto">修改</button>
+                    </div>
+                    <div v-if="showEditForm" class="edit-form">
+                        <input class="form-control" type="text" v-model="editValue">
+                        <button @click="saveUser()" class="btn btn-danger btn-sm ml-auto">保存</button>
+                    </div>
+                </div>
+            </div>
+            <div class="playbar playbar-custom" style="width:100%">
+                <div>
+                    <div>
+                        <!-- 歌曲名和歌手名 -->
+                    </div>
+                    <div>
+                        <div class="playdiv">
+                            <img src="../image/down3.png" alt="Down" @click="downloadMusic">
+                        </div>
+                    </div>
+                </div>
+                <div class=" row mx-auto">
+                    <!-- 上一首按钮-->
+                    <div class="icon-wrapper">
+                        <a href="#"><img src="../image/shang.png" alt=""></a>
+                    </div>
+                    <!-- 播放按钮-->
+                    <div class="icon-wrapper">
+                        <a href="" @click.prevent="togglePlay">
+                            <img :src="isPlaying ? '../image/bofang2.png' : '../image/bofang1.png'" alt="">
+                        </a>
+                    </div>                    
+                    <!-- 下一首按钮-->
+                    <div class="icon-wrapper">
+                        <a href=""><img src="../image/xia.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="center-align">
+                    <span v-if="currentTime">{{ formattedCurrentTime }} / {{ formattedTotalTime }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                playlists: ['歌单 1', '歌单 2', '歌单 3'], // 歌单列表
+                isPlaylistCollapsed: false, // 歌单列表是否折叠
+                currentPage: 'recommend', // 默认显示音乐馆页面
+                currentLike: 'likeSong', // 默认显示喜欢的音乐页面
+
+                //前进后退相关
+                history: ['recommend'], // 历史记录
+                historyIndex: 0 ,// 当前历史记录索引
+
+                musics: [], // 歌曲信息
+
+                // 播放器相关
+                isPlaying: false, // 是否正在播放
+                currentTime: 0, // 当前播放时长
+                totalTime: 0, // 总时长
+                currentAudio: null, // 用来保存当前正在播放的音频元素
+
+                //搜索框相关
+                searchText: '', // 搜索文本
+                searchResults: [], // 搜索结果
+
+                //留言板相关
+                messageContent: '',
+                messages: [],
+
+                mSongs:[],  // 音乐信息发布
+
+                // 用户信息相关
+                currentUser: {userName: '',userPass: '',userAge: '',userSex: '',userBirth: '',userCity: '',userHobby: ''},
+                showEditForm: false,
+                editValue: '',
+                editKey: ''
+            },
+            computed: {
+                collapseIcon() {
+                    return this.isPlaylistCollapsed ? '../image/expand.png' : '../image/collapse.png';
+                },
+
+                // 格式化当前播放时长
+                formattedCurrentTime() {
+                    // 将总时长的秒转换为‘分钟:秒’格式
+                    const currentSeconds = Math.floor(this.currentTime % 60);
+                    const currentMinutes = Math.floor(this.currentTime / 60);
+                    return `${currentMinutes < 10 ? '0' : ''}${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds}`;
+                },
+                formattedTotalTime() {
+                    const totalSeconds = Math.floor(this.totalTime % 60);
+                    const totalMinutes = Math.floor(this.totalTime / 60);
+                    return `${totalMinutes < 10 ? '0' : ''}${totalMinutes}:${totalSeconds < 10 ? '0' : ''}${totalSeconds}`;
+                }
+            },
+            methods: {
+                addPlaylist() {
+                    const newPlaylist = `歌单 ${this.playlists.length + 1}`; // 计算新歌单的名称
+                    this.playlists.push(newPlaylist); // 将新歌单添加到列表中
+                },
+                togglePlaylist() {
+                    this.isPlaylistCollapsed = !this.isPlaylistCollapsed;// 切换歌单列表的折叠状态
+                },
+                deletePlaylist(index) {
+                    this.playlists.splice(index, 1);// 删除指定索引的歌单
+                },
+                showPage(page) {
+                    this.history.splice(this.historyIndex + 1); // 删除当前索引之后的历史记录
+                    this.history.push(page); // 将新页面添加到历史记录中
+                    this.historyIndex++; // 更新历史记录索引
+                    this.currentPage = page; // 更新当前页面
+
+                    // 如果是“我的”页面，获取当前登录用户信息
+                    if (page === 'myself') {
+                        this.getCurrentUser();
+                    }
+                },
+                goBack() {
+                    if (this.historyIndex > 0) { // 如果不是第一个历史记录
+                        this.historyIndex--; // 更新历史记录索引
+                        this.currentPage = this.history[this.historyIndex]; // 更新当前页面
+                    }
+                },
+                goForward() {
+                    if (this.historyIndex < this.history.length - 1) { // 如果不是最后一个历史记录
+                        this.historyIndex++; // 更新历史记录索引
+                        this.currentPage = this.history[this.historyIndex]; // 更新当前页面
+                    }
+                },
+                showLike(like) {
+                    this.currentLike = like; // 更新当前页面
+                },
+
+                // 退出登录，路由重定向
+                logout() {
+                    window.location.href = 'http://127.0.0.1:3000/login';
+                },
+
+                // 点击播放音乐
+                playMusic(music) {
+                    if (!music.mFile) {
+                        console.log("音乐URL为空,无法播放");
+                        return;
+                    }
+                    if (this.currentAudio) { // 如果当前正在播放音乐
+                        this.currentAudio.pause(); // 暂停当前音乐
+                    }
+                    const audio = new Audio(`http://127.0.0.1:3000/audio/${music.mFile}`); // 创建音乐播放器
+                    this.currentAudio = audio; // 将创建的 audio 元素赋值给 currentAudio 变量
+                    audio.addEventListener('loadedmetadata', () => {
+                        console.log("音乐时长:", audio.duration); // 获取音乐时长
+                        this.totalTime = audio.duration; // 更新总时长
+                    });
+                    audio.addEventListener('timeupdate', () => {
+                        this.currentTime = audio.currentTime; // 更新当前播放时长
+                    });
+                    audio.play();
+                    this.isPlaying = true; // 初始化播放状态为true
+                },
+
+                // 暂停按钮功能
+                togglePlay() {
+                    if (this.currentAudio) {
+                        if (this.currentAudio.paused) {
+                            this.currentAudio.play(); // 恢复播放
+                        } else {
+                            this.currentAudio.pause(); // 暂停播放
+                        }
+                        this.isPlaying = !this.currentAudio.paused;
+                    }
+                },
+
+                //下载音乐
+                downloadMusic() {
+                    const url = this.currentAudio.src;
+                    const link = document.createElement('a');// 创建一个 a 标签
+                    // 设置 a 标签的 href 属性为音乐文件的 URL
+                    link.href = url;
+                    // 设置 a 标签的 download 属性为音乐文件的名称
+                    link.download = 'music.mp3';
+                    // 触发 a 标签的点击事件以下载文件
+                    link.click();
+                    console.log(`开始下载音乐文件：${url}`);
+                },
+
+                //搜索音乐
+                searchMusic() {
+                    // 过滤音乐列表以获取与搜索文本匹配的音乐
+                    this.searchResults = this.musics.filter(music => music.mName.includes(this.searchText));
+                },
+
+                // 留言板相关
+                submitMessage() {
+                    axios.post('/admin/index/message', { messageContent: this.messageContent }).then(response => {
+                            this.messageContent = '';// 请求成功清空输入框或进行其他操作
+                            $('#messageModal').modal('hide');// 关闭模态框
+                        }).catch(error => {console.error(error);});
+                },
+
+                // 个人信息相关
+                getCurrentUser() {
+                    var userId = this.userId;
+                    axios.get(`/admin/index/user/current`).then(res => {
+                        this.currentUser = res.data;
+                    }).catch(error => {console.error(error);});
+                },
+
+                editUser(key) {
+                    this.editKey = key;
+                    this.editValue = this.currentUser[key];
+                    this.showEditForm = true;
+                },
+                saveUser() {
+                    this.currentUser[this.editKey] = this.editValue;
+                    axios.post('/admin/index/user/current/edit', this.currentUser).then(res => {
+                        this.showEditForm = false;
+                    }).catch(err => {console.error(err);});
+                }
+            },
+            created(){
+                // 获取音乐信息
+                axios.get('/admin/index/music').then(res => {
+                    this.musics = res.data;
+                }).catch(error => {
+                    console.error(error);
+                });
+
+                // 获取留言信息
+                axios.get('/admin/index/message').then(res => {
+                    this.messages = res.data;
+                }).catch(error => {
+                    console.error(error);
+                });
+
+                // 获取发布信息
+                axios.get('/admin/index/mSong').then(res => {
+                    this.mSongs = res.data;
+                }).catch(error => {
+                    console.error(error);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
