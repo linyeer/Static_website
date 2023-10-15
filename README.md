@@ -11,6 +11,6 @@
 >![教师端](images/pingce_tercher.png)
 ***
 >- **音乐网站的设计与实现-用户**
->![防疫网站](images/music_user.png)
+>![用户](images/music_user.png)
 >  **音乐网站的设计与实现-管理员**
->![防疫网站](images/music_admin.png)
+>![管理员](images/music_admin.png)
