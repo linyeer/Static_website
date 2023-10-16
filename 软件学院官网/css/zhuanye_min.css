@@ -1,0 +1,17 @@
+#pagebody{width:1200px;height:600px;margin:0 auto;background-color:#F5F5F5;}
+        #content_left{height:200px;border:5px solid #FFFFFF;float:left;width:230px;margin:10px 10px;background-color:#FFFFFF;}
+        #content_left a{color:black;}
+        #content_left a:hover{color:blue;}
+        #content_right{height:570px;border:5px solid #FFFFFF;float:right;width:900px;margin:10px 10px;}
+        #content_right p{font-size:20px;font-weight:bold;text-align:left;background:#FFFFFF;padding:6px;}
+        .tab{font-size:16px;height:30px;width:228px;line-height:27px;border:1px solid #EFEFEF;border-radius:10px;background-color:#D3D3D3;}
+        .ul1{font-family:宋体;font-size:18px;text-align:left;margin-top:20px;}
+        body{font:12px Tahoma;margin:0px;text-align:center;background:#FFFFFF;}
+        /*div{border:1px solid #000000;}*/
+        img{max-height:100%;}
+        hr{width:800px;color:black;margin:20px auto 0;border:1px dotted;}
+        a:link{}/*未链接时的效果*/
+        a:visited{}/*已链接时的效果*/
+        a:hover{color:#FF0000;}/*悬停时的效果*/
+        a:active{}/*点击时的效果*/
+        *{margin:0px;padding:0px;}/*所有的元素的对齐方式以及和父类之间的间距都为0*/

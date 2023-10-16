@@ -1,0 +1,25 @@
+*{margin:0px;padding:0px;}   
+        .page{margin-top:50px;margin:50px auto;background-color:white;border:2px solid lightblue;height:1100px;width:900px;}
+        .left{margin-top:20px;background-color:#F9F9F9;height:1050px;width:225px;}      
+        h3 img{width: 25px;height: 25px;}       
+        .i1{height:120px;widows:100px;margin-top:20px;margin-left:50px;}     
+        .right{margin-left:245px;width:630px;height:730px;margin-top:-1035px;}
+        .s1{font:400 12px 宋体;color:#239AD6;width:50px;height:20px;border-radius:28%;background-color:#DFF5F6;line-height:20px;margin-top:10px;}
+        h3{vertical-align:middle;}  
+        .name{font:700 25px 宋体;margin-top:20px;margin-left:75px;}   
+        .sex {font:400 20px;margin-top: 8px;margin-left: 98px;} 
+        h2 {font: 400 15px 微软雅黑;margin: 10px 20px;}
+        .contact {font: 400 14px 微软雅黑;margin-top: 15px;line-height: 25px;/*定义行间距 */}    
+        .base{margin-left: 20px;}       
+        .base dt{padding-top: 15px;} 
+        .base dd{padding-top: 8px;font: 400 15px 微软雅黑;} 
+        .right dt{padding-top: 15px;}
+        .judge{font: 400 13px 微软雅黑;margin-top: 10px;}
+        .right dd{margin-left: 22px;font: 400 15px 微软雅黑;line-height: 25px;color: #332e3d;padding-top: 5px;}
+        .school p{font: 700 17px 微软雅黑;}
+        .school p span{font: 400 10px 微软雅黑;color: #ACB3C2;margin-left: 10px;}
+        .ec{font: 700 15px 微软雅黑;}
+        .xiaohui{width: 60px;height: 50px;margin-left: 590px;}
+        .grade{margin-top: -25px;}
+        .use{margin-top: -45px;}
+        body{background:url(../images/7.jpg);}

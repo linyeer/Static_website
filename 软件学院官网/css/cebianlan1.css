@@ -1,0 +1,59 @@
+#container{width:1200px;height:800px;margin:auto;background-color:#F5F5F5;}
+        #header{width:1200px;height:90px;margin:0 auto;background-color:#F5F5F5;}
+        #menu{width:1180px;height:60px;margin:10px auto;padding:5px auto;background-color:#F0F8FF;border:5px solid #FFFFFF;}
+        #pagebody{width:1200px;height:600px;margin:20px auto;background-color:#F5F5F5;}
+        #content_left,#content_right{height:570px;border:5px solid #FFFFFF;}
+        #content_left{float:left;width:230px;margin:10px 10px;background-color:#FFFFFF;}
+        #content_left a{color:black;}
+        #content_left a:hover{color:blue;}
+        #content_right{float:right;width:900px;margin:10px 10px;}
+        #content_right p{font-size:20px;font-weight:bold;text-align:left;background:#CACD9E;padding:6px;}
+        #content_right p a{float:right;font-weight:bold;color:#9F9F9F;}
+        #content_right ul{list-style-type:none;}
+        #content_right ul li{height:45px;border-bottom:1px dashed black;}
+        #content_right ul a{float:left;height:40px;font-size:18px;line-height:40px;text-align:center;color:black;}
+        #content_right ul a:hover{color:red;}
+        #content_right ul span{float:right;font-size:18px;line-height:40px;text-align:center;}
+        #tail{width:1200px;height:150px;margin:0 auto;background-color:#F5F5F5;}
+        #commonlink,#footer{height:120px;border:5px solid #FFFFFF;}
+        #commonlink{float:left;width:730px;margin:10px 10px;background-color:#FFFFF0;}
+        #footer{float:right;width:400px;margin:10px 10px;background-color:#F0FFFF;text-align:right;}
+        #footer img{cursor:pointer;transition:all 0.5s;}/*0.5秒完成所有属性变化*/
+        #footer img:hover{transform:scale(1.5);}/*放大1.5倍*/
+        #footer p{margin-top:90px;margin-right:2px;}
+        .logo{float:left;margin:2px 5px;}
+        .nav{float:left;width:504px;height:40px;margin:10px auto;}
+        .nav ul li{float:left;display:block;width:82px;height:40px;line-height:40px;margin:0;font-size:15px;border:1px solid none;background-color:#F0F8FF;}
+        .nav ul li a:link,.nav ul li a:visited{font-weight:bold;color:#666;}
+        .nav ul li ul{position:absolute;display:none;}
+        .nav ul li:hover ul{display:block;}/*二级菜单的触发点*/
+        .nav ul li ul li{width:80px;height:40px;float:none;background-color:#F5FFFA;}
+        .nav ul li ul li a{font-size:13px;font-weight:bold;}
+        .search{float:right;width:300px;height:40px;border:1px solid black;margin:10px auto;margin-right:50px;}
+        .input{float:left;width:240px;height:38px;outline:none;border:none;padding-left:5px;}
+        .button{float:left;width:55px;height:40px;color:black;background-color:#FFF0F5;border:none;outline:none;}
+        .personal{float:right;width:40px;height:40px;border:1px solid black;border-radius:100%;overflow:hidden;margin:10px 40px;}
+        .me{display:none;position:absolute;background-color:#F9F9F9;width:75px;box-shadow/*边框阴影*/:0px 8px 16px 0px rgba(0,0,0,0.2);}
+        .me a{color:#000000;padding:12px 8px;display:block;}
+        .me a:hover{background-color:#F1F1F1;}
+        .personal:hover .me{display:block;}
+        .time{float:right;width:80px;height:40px;margin:10px auto;line-height:20px;}
+        .img1{display:block;}
+        .img2{display:none;}
+        .img3{display:none;}
+        .tab{font-size:16px;height:30px;width:228px;line-height:27px;border:1px solid #EFEFEF;border-radius:10px;background-color:#D3D3D3;}
+        .sidebar_nav{font-size:15px;height:30px;width:228px;margin:16px auto;line-height:27px;border:none;border-radius:10px;background-color:#EEEEEE;}
+        .link{width:70px;height:70px;float:left;margin:5px 20px;border:1px solid #FFFFFF;box-shadow/*边框阴影*/:0px 8px 16px 0px rgba(0,0,0,0.2);border-radius:100%;overflow:hidden;background-color:#F0FFF0;}
+        .p1{text-align:left;color:#4682B4;}
+        .p2{text-align:left;margin:88px 18px;word-spacing:60px;}
+        .QR_code{float:left;width:80px;height:80px;margin:20px 40px;}
+        .QR_{margin:0;text-align:center;}
+        body{font:12px Tahoma;margin:0px;text-align:center;background:#FFFFFF;}
+        img{max-height:100%;}
+        hr{width:730px;size:5px;color:black;margin:2px auto 0;}
+        a{text-decoration:none;}
+        a:link{}/*未链接时的效果*/
+        a:visited{}/*已链接时的效果*/
+        a:hover{color:#FF0000;}/*悬停时的效果*/
+        a:active{}/*点击时的效果*/
+        *{margin:0px;padding:0px;}/*所有的元素的对齐方式以及和父类之间的间距都为0*/
