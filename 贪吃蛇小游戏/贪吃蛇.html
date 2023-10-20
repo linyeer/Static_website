@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+    <title>贪吃蛇</title>
+    <link rel="stylesheet" type="text/css" href="贪吃蛇.css">
+</head>
+<body>
+    <div id="score-board">
+        <div id="highest-score">历史最高分: 0</div>
+        <div id="current-score">当前得分: 0</div>
+    </div>
+    <canvas id="canvas" width="1000" height="600"></canvas>
+    <button class="btn1" id="restartButton">重新开始</button>
+    <button class="btn2" id="pauseButton">暂停游戏</button>
+    <script type="text/javascript">
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        // 获取显示分数的元素
+        var highestScoreElement = document.getElementById('highest-score');
+        var currentScoreElement = document.getElementById('current-score');
+
+        // 定义变量来跟踪历史最高分和当前得分
+        var highestScore = 0;
+        var currentScore = 0;
+
+        //初始化游戏循环定时器
+        var gameInterval;
+
+        // 打开一个名为'snake-game'的数据库
+        var openRequest = indexedDB.open('snake-game', 1);
+
+        // 如果数据库不存在，则创建一个名为'scores'的对象存储空间
+        openRequest.onupgradeneeded = function(event) {
+            var db = event.target.result;
+            db.createObjectStore('scores', { keyPath: 'id' });//创建对象仓库以及绑定主键
+        };
+
+        // 定义一个变量来保存数据库对象
+        var db;
+
+        // 成功打开数据库后执行以下操作
+        openRequest.onsuccess = function(event) {
+            db = event.target.result;
+
+            // 获取历史最高分
+            var transaction = db.transaction('scores', 'readonly');//创建事务
+            var objectStore = transaction.objectStore('scores');
+            var getRequest = objectStore.get('highest-score');//获取对应标签的请求
+
+            //成功回调函数
+            getRequest.onsuccess = function(event) {
+                var result = event.target.result;
+                if (result) {
+                    highestScore = result.score;
+                    // 更新页面上的历史最高分
+                    highestScoreElement.textContent = '历史最高分: ' + highestScore;
+                }
+            };
+        };
+
+        // 更新历史最高分
+        function updateHighestScore(newHighestScore) {
+            var transaction = db.transaction('scores', 'readwrite');
+            var objectStore = transaction.objectStore('scores');
+            objectStore.put({ id: 'highest-score', score: newHighestScore });//设置写入对象存储中的数据格式
+        }
+
+        // 在蛇吃到食物时更新当前得分
+        function updateCurrentScore() {
+            currentScore++;
+            currentScoreElement.textContent = '当前得分: ' + currentScore;
+
+            // 如果当前得分高于历史最高分，则更新历史最高分并将其存储在IndexedDB数据库中
+            if (currentScore > highestScore) {
+                highestScore = currentScore;
+                highestScoreElement.textContent = '历史最高分: ' + highestScore;
+                updateHighestScore(highestScore);
+            }
+        }
+
+        //创建蛇运动时方块的变动效果
+        //构造对象方块
+        function Rect(x, y, w, h, color) {//给定位置，创建矩形对象
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.color = color;
+        }
+        //画方块的方法
+        Rect.prototype.draw = function() {
+            context.beginPath();//开始新路径
+            context.fillStyle = this.color;//填充矩形颜色
+            context.rect(this.x, this.y, this.w, this.h);//定义矩形位置和大小
+            context.fill();//填充
+            context.stroke();//描边矩形
+        }
+
+        //构造对象蛇
+        function Snake() {
+
+            //定义一个空数组存放组成整蛇的方块对象
+            var snakeArray = [];
+
+            //画出4个方块，设置成灰色
+            for (var i = 0; i < 4; i++) {
+                var rect = new Rect(i * 20, 0, 20, 20, "gray");
+                //之所以用splice（往前加）而不是用push（往后加），是为了让蛇头出现在数组第一个位置
+                snakeArray.splice(0, 0, rect);
+            }
+
+            //把数组第一个作为蛇头，蛇头设成红色
+            var head = snakeArray[0];
+            head.color = "red";
+
+            //此处将两个后面常用的东西定为属性，方便后面调用
+            this.head = snakeArray[0]; //蛇头
+            this.snakeArray = snakeArray; //整蛇数组
+
+            //给定初始位置向右(同keyCode右箭头)
+            this.direction = 39;
+        }
+        //画蛇的方法
+        Snake.prototype.draw = function() {
+                for (var i = 0; i < this.snakeArray.length; i++) {//通过蛇长度的数组进行矩形方块颜色填充
+                    this.snakeArray[i].draw();
+                }
+            }
+        //蛇移动的方法
+        Snake.prototype.move = function() {
+            var rect = new Rect(this.head.x, this.head.y, this.head.w, this.head.h, "gray");//创建蛇头的位置和大小的对象
+            this.snakeArray.splice(1, 0, rect);//插入蛇身数组第二个位置
+            if (isEat()) {
+                food = new getRandomFood();//吃到食物就创建食物的对象
+            } else {
+                this.snakeArray.pop();//删除蛇身数组最后的一个元素
+            }
+
+            //设置蛇头的运动方向，37 左，38 上，39 右，40 下
+            switch (this.direction) {
+                case 37:
+                    this.head.x -= this.head.w
+                    break;
+                case 38:
+                    this.head.y -= this.head.h
+                    break;
+                case 39:
+                    this.head.x += this.head.w
+                    break;
+                case 40:
+                    this.head.y += this.head.h
+                    break;
+                default:
+                    break;
+            }
+
+            // 撞墙
+            if (this.head.x >= canvas.width || this.head.x < 0 || this.head.y >= canvas.height || this.head.y < 0) {
+                clearInterval(timer);
+                alert('游戏结束！');
+                restart();
+            }
+
+            // 撞自己，循环从1开始，避开蛇头与蛇头比较的情况
+            for (var i = 1; i < this.snakeArray.length; i++) {
+                if (this.snakeArray[i].x == this.head.x && this.snakeArray[i].y == this.head.y) {
+                    clearInterval(timer);
+                    alert('游戏结束！');
+                    restart();
+                }
+            }
+        }
+
+        //画出初始的蛇
+        var snake = new Snake()
+        snake.draw();
+
+        //画出初始的食物
+        var food = new getRandomFood()
+
+        //定时器,每隔0.1秒清除画布，重新绘制
+        var timer = setInterval(function() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            food.draw();
+            snake.move();
+            snake.draw();
+        }, 100)
+
+        //键盘事件，其中的if判定是为了让蛇不能直接掉头
+        document.onkeydown = function(e) {
+            var ev = e || window.event;
+            switch (ev.keyCode) {
+                case 37:
+                    {
+                        if (snake.direction !== 39) {snake.direction = 37;}
+                        break;
+                    }
+                case 38:
+                    {
+                        if (snake.direction !== 40) {snake.direction = 38;}
+                        break;
+                    }
+                case 39:
+                    {
+                        if (snake.direction !== 37) {snake.direction = 39;}
+                        break;
+                    }
+                case 40:
+                    {
+                        if (snake.direction !== 38) {snake.direction = 40;}
+                        break;
+                    }
+            }
+            ev.preventDefault();
+        }
+
+        //随机函数，获得[min,max]范围的值
+        function getNumberInRange(min, max) {
+            var range = max - min;
+            var r = Math.random();
+            return Math.round(r * range + min)
+        }
+
+        //构建食物对象
+        function getRandomFood() {
+
+            //判定食物是否出现在蛇身上，如果是重合，则重新生成一遍
+            var isOnSnake = true;
+
+            //设置食物出现的随机位置
+            while (isOnSnake) {
+                //执行后先将判定条件设置为false，如果判定不重合，则不会再执行下列语句
+                isOnSnake = false;
+                var indexX = getNumberInRange(0, canvas.width / 20 - 1);
+                var indexY = getNumberInRange(0, canvas.height / 20 - 1);
+                var rect = new Rect(indexX * 20, indexY * 20, 20, 20, "green");
+                for (var i = 0; i < snake.snakeArray.length; i++) {
+                    if (snake.snakeArray[i].x == rect.x && snake.snakeArray[i].y == rect.y) {
+                        //如果判定重合，将其设置为true，使随机数重给
+                        isOnSnake = true;
+                        break;
+                    }
+                }
+            }
+            //返回rect，使得实例化对象food有draw的方法
+            return rect;
+        }
+
+        //判定吃到食物，即蛇头坐标与食物坐标重合
+        function isEat() {
+            if (snake.head.x == food.x && snake.head.y == food.y) {
+                updateCurrentScore(); // 更新当前得分
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        var isPaused = false; // 游戏是否处于暂停状态
+
+        // 重新开始游戏
+        function restart() {
+            // 重置游戏状态
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            snake = new Snake();
+            food = new getRandomFood();
+            currentScore = 0;
+            currentScoreElement.textContent = '当前得分: ' + currentScore;
+            isPaused = false;
+            clearInterval(timer);
+            timer = setInterval(function() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                food.draw();
+                snake.move();
+                snake.draw();
+            }, 100);
+        }
+
+        // 暂停游戏
+        function pause() {
+            if (isPaused) {
+                // 如果游戏已经暂停，则恢复游戏
+                isPaused = false;
+                timer = setInterval(function() {
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                    food.draw();
+                    snake.move();
+                    snake.draw();
+                }, 100);
+            } else {
+                // 如果游戏未暂停，则暂停游戏
+                isPaused = true;
+                clearInterval(timer);
+            }
+        }
+
+        // 为重新开始按钮添加点击事件监听器
+        document.getElementById('restartButton').onclick = function() {
+            restart();
+        };
+
+        // 为暂停按钮添加点击事件监听器
+        document.getElementById('pauseButton').onclick = function() {
+            pause();
+        };
+    </script>
+</body>
+</html>
