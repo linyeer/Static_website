@@ -19,4 +19,4 @@
 ![软件学院官网](images/ruanjian.png)
 ***
 >- **贪吃蛇小游戏**  
-![贪吃蛇小游戏](images/tanchishe.png)
+![贪吃蛇小游戏](images/)
