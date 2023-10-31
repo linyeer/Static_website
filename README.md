@@ -19,4 +19,5 @@
 ![软件学院官网](images/ruanjian.png)
 ***
 >- **贪吃蛇小游戏**  
-![贪吃蛇小游戏](images/tanchishe.png)
+![贪吃蛇小游戏p1](images/tanchishe1.png)
+![贪吃蛇小游戏p2](images/tanchishe2.png)
